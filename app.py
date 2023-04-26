@@ -31,17 +31,17 @@ def account_verification():
     if not request.data:
         return jsonify({'message': 'Body is empty'}), 400
     if body["request"]["account"] == 'newtankistwot@gmail.com':
-        return jsonify({'result': '0'}), 200
+        return jsonify({'response': {'result': '0'}}), 200
     elif body["request"]["account"] == 'newtankistwot_1@gmail.com':
-        return jsonify({'result': '1'}), 200
+        return jsonify({'response': {'result': '1'}}), 200
     elif body["request"]["account"] == 'newtankistwot_4@gmail.com':
-        return jsonify({'result': '4'}), 200
+        return jsonify({'response': {'result': '4'}}), 200
     elif body["request"]["account"] == 'newtankistwot_5@gmail.com':
-        return jsonify({'result': '5'}), 200
+        return jsonify({'response': {'result': '5'}}), 200
     elif body["request"]["account"] == 'newtankistwot_7@gmail.com':
-        return jsonify({'result': '7'}), 200
+        return jsonify({'response': {'result': '7'}}), 200
     elif body["request"]["account"] == 'newtankistwot_8@gmail.com':
-        return jsonify({'result': '8'}), 500
+        return jsonify({'response': {'result': '8'}}), 200
     elif body["request"]["account"] == 'newtankistwot_500@gmail.com':
         return jsonify({'message': 'Case with 500 status code'}), 500
     elif body["request"]["account"] == 'newtankistwot_15@gmail.com':
