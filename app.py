@@ -50,6 +50,8 @@ def account_verification():
         return jsonify({'response': {'result': '0'}}), 200
     elif body["request"]["account"] == 'newtankistwot_11@gmail.com':
         return jsonify({'response': {'result': '0'}}), 200
+    elif body["request"]["account"] == 'newtankistwot_13@gmail.com':
+        return jsonify({'response': {'result': '13'}}), 200
 
 
 @app.route('/stub/callback', methods=['POST'])
