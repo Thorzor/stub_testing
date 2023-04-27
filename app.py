@@ -46,13 +46,21 @@ def account_verification():
         return jsonify({'message': 'Case with 500 status code'}), 500
     elif body["request"]["account"] == 'newtankistwot_15@gmail.com':
         time.sleep(15)
-        return jsonify({'message': 'Case with delay response'}), 500
+    elif body["request"]["account"] == 'newtankistwot_10@gmail.com':
+        return jsonify({'response': {'result': '0'}}), 200
+    elif body["request"]["account"] == 'newtankistwot_11@gmail.com':
+        return jsonify({'response': {'result': '0'}}), 200
 
 
 @app.route('/stub/callback', methods=['POST'])
 def process_callback():
     body = request.get_json()
-    return jsonify({'message': 'Successful callback'}), 200
+    if body['transaction']['qiwi_terminal']['account_number'] == 'newtankistwot_10@gmail.com':
+        return jsonify({'message': 'Case with 500 status code'}), 500
+    elif body['transaction']['qiwi_terminal']['account_number'] == 'newtankistwot_11@gmail.com':
+        return jsonify({'message': 'Case with 400 status code'}), 400
+    else:
+        return jsonify({'message': 'Successful callback'}), 200
 
 
 if __name__ == '__main__':
