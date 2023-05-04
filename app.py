@@ -44,6 +44,8 @@ def account_verification():
         return jsonify({'response': {'result': '8'}}), 200
     elif body["request"]["account"] == 'newtankistwot_500@gmail.com':
         return jsonify({'message': 'Case with 500 status code'}), 500
+    elif body["request"]["account"] == 'newtankistwot_400@gmail.com':
+        return jsonify({'message': 'Case with 422 status code'}), 422
     elif body["request"]["account"] == 'newtankistwot_15@gmail.com':
         time.sleep(15)
     elif body["request"]["account"] == 'newtankistwot_10@gmail.com':
