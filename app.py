@@ -67,5 +67,145 @@ def process_callback():
         return jsonify({'message': 'Successful callback'}), 200
 
 
+@app.route('/stub/erip/account_verification', methods=['POST'])
+def erip_account_verification():
+    body = request.get_json()
+    if not request.data:
+        return jsonify({'message': 'Body is empty'}), 400
+    if body["request"]["account"] == "1111111111":
+        return jsonify({
+            "response": {
+                "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
+                "tracking_id": "your_uniq_number",
+                "amount": 100,
+                "editable_amount": True,
+                "currency": "RUB",
+                "result": "0",
+                "description": "0"
+            }
+        }), 200
+    elif body["request"]["account"] == "2222222222":
+        return jsonify({
+            "response": {
+                "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
+                "tracking_id": "your_uniq_number",
+                "amount": 100,
+                "editable_amount": True,
+                "currency": "RUB",
+                "result": "0",
+                "description": "0",
+                "person": {
+                    "first_name": "client_name",
+                    "last_name": "client_surname",
+                    "middle_name": "client_patronymic",
+                },
+                "hint": [
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_n"
+                    },
+                ]
+            }
+        }), 200
+    elif body["request"]["account"] == "3333333333":
+        time.sleep(15)
+        return jsonify({
+            "response": {
+                "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
+                "tracking_id": "your_uniq_number",
+                "amount": 100,
+                "editable_amount": True,
+                "currency": "RUB",
+                "result": "0",
+                "description": "0",
+                "person": {
+                    "first_name": "client_name",
+                    "last_name": "client_surname",
+                    "middle_name": "client_patronymic",
+                },
+                "hint": [
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_n"
+                    },
+                ]
+            }
+        }), 200
+    elif body["request"]["account"] == "4444444444":
+        return jsonify({
+            "response": {
+                "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
+                "tracking_id": "your_uniq_number",
+                "amount": 0,
+                "editable_amount": True,
+                "currency": "RUB",
+                "result": "3",
+                "description": "0",
+                "person": {
+                    "first_name": "client_name",
+                    "last_name": "client_surname",
+                    "middle_name": "client_patronymic",
+                },
+                "hint": [
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_n"
+                    },
+                ]
+            }
+        })
+    elif body["request"]["account"] == "5555555555":
+        return jsonify({
+            "response": {
+                "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
+                "tracking_id": "your_uniq_number",
+                "amount": 100,
+                "editable_amount": True,
+                "currency": "RUB",
+                "description": "0",
+                "person": {
+                    "first_name": "client_name",
+                    "last_name": "client_surname",
+                    "middle_name": "client_patronymic",
+                },
+                "hint": [
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_n"
+                    },
+                ]
+            }
+        })
+
+
+@app.route('/stub/erip_callback', methods=['POST'])
+def process_erip_callback():
+    body = request.get_json()
+    if body['transaction']['qiwi_terminal']['account_number'] == '7777777777':
+        return jsonify({'message': 'Case with 500 status code'}), 500
+    elif body['transaction']['qiwi_terminal']['account_number'] == '8888888888':
+        return jsonify({'message': 'Successful callback'}), 200
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
