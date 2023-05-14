@@ -1,11 +1,23 @@
 import json
 import time
+import asyncio
 
 from flask import Flask, request, jsonify
 
 from methods import stub_response, stub_update
+from methods.count import Counter
 
 app = Flask(__name__)
+loop = asyncio.get_event_loop()
+counter_object_1 = Counter()
+counter_object_2 = Counter()
+counter_object_3 = Counter()
+
+
+async def some_action():
+    print('Start some action')
+    await asyncio.sleep(15)  # задержка на 5 секунд
+    print('Finish some action')
 
 
 @app.route('/')
@@ -207,5 +219,82 @@ def process_erip_callback():
         return jsonify({'message': 'Successful callback'}), 200
 
 
+@app.route('/get_counter', methods=['GET'])
+def get_counter():
+    return jsonify({'counter': f'{counter_object_1.get_counter_value()}'}), 200
+
+
+@app.route('/v1/payout/status', methods=['POST'])
+def stub_process():
+    body = request.get_json()
+
+    if not request.data:
+        return jsonify({'message': 'Body is empty'}), 400
+    order_id = body['order_id']
+
+    if body['card_exp_year'] == '27':
+        if counter_object_1.get_counter_value() == 3:
+            counter_object_1.reset_counter()
+            return jsonify({
+                "payment_status": "fail", "id": 100000536, "order_id": f"{order_id}", "amount": "300.00",
+                "payment_amount": "300.00", "is_partial_payment": False, "account_payment_amount": 290,
+                "commission_amount": 10, "service_code": "payment_card_rub", "account_old_balance": 1290,
+                "account_new_balance": 1000}), 200
+        else:
+            counter_object_1.update_counter()
+            return jsonify({
+                "payment_status": "wait", "id": 100000536, "order_id": f"{order_id}", "amount": "300.00",
+                "payment_amount": "300.00", "is_partial_payment": False, "account_payment_amount": 290,
+                "commission_amount": 10, "service_code": "payment_card_rub", "account_old_balance": 1290,
+                "account_new_balance": 1000}), 200
+
+    elif body['card_exp_year'] == '29':
+        if counter_object_1.get_counter_value() == 4:
+            counter_object_2.reset_counter()
+            return jsonify({
+                "payment_status": "cancel", "id": 100000536, "order_id": f"{order_id}", "amount": "300.00",
+                "payment_amount": "300.00", "is_partial_payment": False, "account_payment_amount": 290,
+                "commission_amount": 10, "service_code": "payment_card_rub", "account_old_balance": 1290,
+                "account_new_balance": 1000}), 200
+        else:
+            counter_object_2.update_counter()
+            return jsonify({
+                "payment_status": "wait", "id": 100000536, "order_id": f"{order_id}", "amount": "300.00",
+                "payment_amount": "300.00", "is_partial_payment": False, "account_payment_amount": 290,
+                "commission_amount": 10, "service_code": "payment_card_rub", "account_old_balance": 1290,
+                "account_new_balance": 1000}), 200
+
+    elif body['card_exp_year'] == '30':
+        if counter_object_3.get_counter_value() == 5:
+            counter_object_3.reset_counter()
+            return jsonify({
+                "payment_status": "paid", "id": 100000536, "order_id": f"{order_id}", "amount": "300.00",
+                "payment_amount": "300.00", "is_partial_payment": False, "account_payment_amount": 290,
+                "commission_amount": 10, "service_code": "payment_card_rub", "account_old_balance": 1290,
+                "account_new_balance": 1000}), 200
+        else:
+            counter_object_3.update_counter()
+            return jsonify({
+                "payment_status": "wait", "id": 100000536, "order_id": f"{order_id}", "amount": "300.00",
+                "payment_amount": "300.00", "is_partial_payment": False, "account_payment_amount": 290,
+                "commission_amount": 10, "service_code": "payment_card_rub", "account_old_balance": 1290,
+                "account_new_balance": 1000}), 200
+
+    elif body['card_exp_year'] == '31':
+        return jsonify({'message': 'Case with 500 status code'}), 500
+
+    elif body['card_exp_year'] == '32':
+        loop.create_task(some_action())
+        return jsonify({'message': 'Case with async'}), 200
+
+    else:
+        return jsonify({
+            "payment_status": "wait", "id": 100000536, "order_id": f"{order_id}", "amount": "300.00",
+            "payment_amount": "300.00", "is_partial_payment": False, "account_payment_amount": 290,
+            "commission_amount": 10, "service_code": "payment_card_rub", "account_old_balance": 1290,
+            "account_new_balance": 1000}), 200
+
+
 if __name__ == '__main__':
+    loop.run_until_complete(asyncio.sleep(0))
     app.run(host='0.0.0.0', port=5000)
