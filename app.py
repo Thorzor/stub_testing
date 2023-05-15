@@ -1,4 +1,5 @@
 import json
+import random
 import time
 import asyncio
 
@@ -12,12 +13,6 @@ loop = asyncio.get_event_loop()
 counter_object_1 = Counter()
 counter_object_2 = Counter()
 counter_object_3 = Counter()
-
-
-async def some_action():
-    print('Start some action')
-    await asyncio.sleep(15)  # задержка на 5 секунд
-    print('Finish some action')
 
 
 @app.route('/')
@@ -283,9 +278,6 @@ def stub_process():
     elif body['card_exp_year'] == '31':
         return jsonify({'message': 'Case with 500 status code'}), 500
 
-    elif body['card_exp_year'] == '32':
-        loop.create_task(some_action())
-        return jsonify({'message': 'Case with async'}), 200
 
     else:
         return jsonify({
@@ -293,6 +285,11 @@ def stub_process():
             "payment_amount": "300.00", "is_partial_payment": False, "account_payment_amount": 290,
             "commission_amount": 10, "service_code": "payment_card_rub", "account_old_balance": 1290,
             "account_new_balance": 1000}), 200
+
+
+@app.route('/v1/payout', methods=['POST'])
+def process_payout():
+    return jsonify({"payment_status": "wait", "id": random.randint(100000000, 999999999)}), 200
 
 
 if __name__ == '__main__':
