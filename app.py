@@ -74,7 +74,7 @@ def erip_account_verification():
     body = request.get_json()
     if not request.data:
         return jsonify({'message': 'Body is empty'}), 400
-    if body["request"]["account"] == "1111111111":
+    if "1111111111" in str(body["request"]["account"]):
         return jsonify({
             "response": {
                 "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
@@ -86,7 +86,7 @@ def erip_account_verification():
                 "description": "0"
             }
         }), 200
-    elif body["request"]["account"] == "2222222222":
+    elif "2222222222" in str(body["request"]["account"]):
         return jsonify({
             "response": {
                 "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
@@ -114,7 +114,7 @@ def erip_account_verification():
                 ]
             }
         }), 200
-    elif body["request"]["account"] == "3333333333":
+    elif "3333333333" in str(body["request"]["account"]):
         time.sleep(15)
         return jsonify({
             "response": {
@@ -143,7 +143,7 @@ def erip_account_verification():
                 ]
             }
         }), 200
-    elif body["request"]["account"] == "4444444444":
+    elif "4444444444" in str(body["request"]["account"]):
         return jsonify({
             "response": {
                 "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
@@ -171,7 +171,7 @@ def erip_account_verification():
                 ]
             }
         })
-    elif body["request"]["account"] == "5555555555":
+    elif "5555555555" in str(body["request"]["account"]):
         return jsonify({
             "response": {
                 "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
