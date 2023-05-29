@@ -231,7 +231,7 @@ def process_payout():
 
 @app.route('/cards/<card_id>', methods=['GET'])
 def process_cards_id(card_id):
-    response = {
+    canceled_status = {
         "encryptedPaymentData": {
             "paymentToken": {
                 "paymentAccountReference": "5001EUMYTT3AESCZGUEC77KPCLETI",
@@ -285,8 +285,64 @@ def process_cards_id(card_id):
         "srcCorrelationId": "779165e0-1905-4edd-89fa-be46497b5044",
         "keyFingerprintId": "nwzNuN9upxolVsr6q0I/phcnfA/ZlaJ2gmAJiogMCwM"
     }
+    suspended_status = {
+        "encryptedPaymentData": {
+            "paymentToken": {
+                "paymentAccountReference": "5001EUMYTT3AESCZGUEC77KPCLETI",
+                "paymentToken": "5972374364093457",
+                "tokenExpirationMonth": "05",
+                "tokenExpirationYear": "2022"
+            }
+        },
+        "maskedCard": {
+            "dateOfCardCreated": "2021-11-25T14:51:03.811Z",
+            "delegatedAuthenticationModels": [
+                {
+                    "isSupported": True,
+                    "modelType": "AE_TYPE_3"
+                }
+            ],
+            "digitalCardData": {
+                "artUri": "https://assets.mastercard.com/card-art/combined-image-asset/MyBank-mastercard.png",
+                "coBrandedName": "My Bank",
+                "descriptorName": "Bank Rewards MasterCard",
+                "isCoBranded": True,
+                "pendingEvents": [
+                    "PENDING_SCA"
+                ],
+                "status": "SUSPENDED",
+                "issuerName": "Issuing Bank",
+                "longDescription": "Bank Rewards MasterCard with the super duper rewards program",
+                "foregroundColor": "FF5733"
+            },
+            "panBin": "520473",
+            "panExpirationMonth": "05",
+            "panExpirationYear": "2022",
+            "panLastFour": "4601",
+            "paymentAccountReference": "5001EUMYTT3AESCZGUEC77KPCLETI",
+            "paymentCardDescriptor": "mastercard",
+            "paymentCardType": "CREDIT",
+            "serviceId": "#serviceId_providedbyMastercard",
+            "srcDigitalCardId": card_id,
+            "tokenLastFour": "7217",
+            "tokenUniqueReference": "DM4MMC0000000001cd2826c715b7475bb089b7622366ebe4",
+            "tokenExpirationMonth": 10,
+            "tokenExpirationYear": "2022"
+        },
+        "maskedConsumer": {
+            "dateConsumerAdded": "2021-11-25T14:51:03.811Z",
+            "maskedConsumerIdentity": {
+                "identityType": "EXTERNAL_ACCOUNT_ID",
+                "maskedIdentityValue": "90032****"
+            }
+        },
+        "srcCorrelationId": "779165e0-1905-4edd-89fa-be46497b5044",
+        "keyFingerprintId": "nwzNuN9upxolVsr6q0I/phcnfA/ZlaJ2gmAJiogMCwM"
+    }
     if card_id == 'd4bce4b5-9d2b-493b-bb38-938784c37fc1':
-        return jsonify(response), 200
+        return jsonify(canceled_status), 200
+    elif card_id == '8970c61e-36d4-4366-92b6-9833cf4c1e47':
+        return jsonify(suspended_status), 200
     elif card_id == 'd89196a1-37e3-498b-aace-e8d971f6516b':
         return jsonify({'message': 'Case with 500 status code'}), 500
 
