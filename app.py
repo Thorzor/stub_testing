@@ -347,7 +347,7 @@ def process_cards_id(card_id):
         return jsonify({'message': 'Case with 500 status code'}), 500
 
 
-@app.route('/vts/merchant-api-ic/onboarding', methods=['GET'])
+@app.route('/vts/merchant-api-ic/onboarding', methods=['POST'])
 def process_vts():
     body = request.json()
     if body['primaryWebsiteURL'] == 'https://www.stub-service.online/':
