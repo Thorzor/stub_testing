@@ -209,9 +209,9 @@ def process_erip_callback():
         return jsonify({'message': 'Successful callback'}), 200
 
 
-@app.route('/v1/payout/update', methods=['PUT'])
+@app.route('/pay/direct/update', methods=['PUT'])
 def update_payout():
-    return update_payout.stub_update()
+    return stub_update.stub_update()
 
 
 @app.route('/v1/payout/status/update', methods=['PUT'])
@@ -219,9 +219,9 @@ def update_payout_status():
     return status_payout_update.stub_update()
 
 
-@app.route('/v1/payout/status', methods=['POST'])
+@app.route('/pay/direct', methods=['POST'])
 def stub_process():
-    return payout_status.stub_resp()
+    return stub_response.stub_resp()
 
 
 @app.route('/v1/payout', methods=['POST'])
