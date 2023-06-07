@@ -356,5 +356,24 @@ def process_vts():
         return jsonify({'message': 'Case with 400 status code'}), 400
 
 
+@app.route('/verify', methods=['POST'])
+def process_verify():
+    body = request.get_json()
+    if body['amount'] > 100:
+        return jsonify({
+            "code": 0,
+            "uid": body['uid'],
+            "amount": body['amount'],
+            "created_at": body['created_at']
+        }), 200
+    else:
+        return jsonify({
+            "code": 0,
+            "uid": body['uid'],
+            "amount": body['amount'],
+            "created_at": body['created_at']
+        }), 200
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
