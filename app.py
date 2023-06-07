@@ -368,7 +368,7 @@ def process_verify():
         }), 200
     else:
         return jsonify({
-            "code": 0,
+            "code": 1,
             "uid": body['uid'],
             "amount": body['amount'],
             "created_at": body['created_at']
