@@ -366,13 +366,35 @@ def process_verify():
             "amount": body['amount'],
             "created_at": body['created_at']
         }), 200
-    else:
+    elif body['amount'] == 555:
         return jsonify({
-            "code": 1,
             "uid": body['uid'],
             "amount": body['amount'],
             "created_at": body['created_at']
         }), 200
+    elif body['amount'] == 111:
+        return jsonify({
+            "message": "Case with 500"
+        }), 200
+    elif body['amount'] == 222:
+        return jsonify({
+            "code": 0,
+            "uid": body['uid'],
+            "amount": body['amount'],
+            "created_at": body['created_at']
+        }),
+    elif body['amount'] == 333:
+        return jsonify({
+            "message": "Case with 400"
+        }), 400
+    elif body['amount'] == 123:
+        time.sleep(11)
+        return jsonify({
+            "code": 0,
+            "uid": body['uid'],
+            "amount": body['amount'],
+            "created_at": body['created_at']
+        }), 400
 
 
 if __name__ == '__main__':
