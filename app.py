@@ -366,6 +366,13 @@ def process_verify():
             "amount": body['amount'],
             "created_at": body['created_at']
         }), 200
+    elif body['amount'] < 100:
+        return jsonify({
+            "code": 1,
+            "uid": body['uid'],
+            "amount": body['amount'],
+            "created_at": body['created_at']
+        }), 200
     elif body['amount'] == 555:
         return jsonify({
             "uid": body['uid'],
