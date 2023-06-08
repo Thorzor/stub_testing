@@ -382,7 +382,7 @@ def process_verify():
     elif body['amount'] == 111:
         return jsonify({
             "message": "Case with 500"
-        }), 200
+        }), 500
     elif body['amount'] == 222:
         return jsonify({
             "code": 0,
@@ -402,6 +402,13 @@ def process_verify():
             "amount": body['amount'],
             "created_at": body['created_at']
         }), 400
+    else:
+        return jsonify({
+            "code": 1,
+            "uid": body['uid'],
+            "amount": body['amount'],
+            "created_at": body['created_at']
+        }), 200
 
 
 if __name__ == '__main__':
