@@ -359,7 +359,7 @@ def process_vts():
 @app.route('/verify', methods=['POST'])
 def process_verify():
     body = request.get_json()
-    if body['amount'] > 100:
+    if body['amount'] == 100:
         return jsonify({
             "code": 0,
             "uid": body['uid'],
