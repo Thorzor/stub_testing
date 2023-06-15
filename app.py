@@ -221,7 +221,7 @@ def update_payout_status():
 
 @app.route('/pay/direct', methods=['POST'])
 def stub_process():
-    return stub_response.stub_resp()
+    return stub_response.stub_resp(), 502
 
 
 @app.route('/v1/payout', methods=['POST'])
