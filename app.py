@@ -221,7 +221,10 @@ def update_payout_status():
 
 @app.route('/pay/direct', methods=['POST'])
 def stub_process():
-    return stub_response.stub_resp(), 502
+    #html = "<html><head><title>502 Bad Gateway</title></head><body><center><h1>502 Bad Gateway</h1></center><hr><center>nginx</center></body></html"
+    html = "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html"
+    # return stub_response.stub_resp(), 502
+    return html
 
 
 @app.route('/v1/payout', methods=['POST'])
