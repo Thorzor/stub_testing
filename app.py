@@ -221,7 +221,7 @@ def update_payout_status():
 
 @app.route('/pay/direct', methods=['POST'])
 def stub_process():
-    #html = "<html><head><title>502 Bad Gateway</title></head><body><center><h1>502 Bad Gateway</h1></center><hr><center>nginx</center></body></html"
+    # html = "<html><head><title>502 Bad Gateway</title></head><body><center><h1>502 Bad Gateway</h1></center><hr><center>nginx</center></body></html"
     html = "<html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html"
     # return stub_response.stub_resp(), 502
     return html, 502
@@ -411,6 +411,61 @@ def process_verify():
             "uid": body['uid'],
             "amount": body['amount'],
             "created_at": body['created_at']
+        }), 200
+
+
+@app.route('/alternative/verify', methods=['POST'])
+def process_alternative_verify():
+    body = request.get_json()
+    if body['transaction']['amount'] == 100:
+        return jsonify({
+            "code": 0,
+            "uid": body['transaction']['uid'],
+            "amount": body['transaction']['amount'],
+            "created_at": body['transaction']['created_at']
+        }), 200
+    elif body['transaction']['amount'] < 100:
+        return jsonify({
+            "code": 1,
+            "uid": body['transaction']['uid'],
+            "amount": body['transaction']['amount'],
+            "created_at": body['transaction']['created_at']
+        }), 200
+    elif body['transaction']['amount'] == 555:
+        return jsonify({
+            "uid": body['transaction']['uid'],
+            "amount": body['transaction']['amount'],
+            "created_at": body['transaction']['created_at']
+        }), 200
+    elif body['transaction']['amount'] == 111:
+        return jsonify({
+            "message": "Case with 500"
+        }), 500
+    elif body['transaction']['amount'] == 222:
+        return jsonify({
+            "code": 0,
+            "uid": body['transaction']['uid'],
+            "amount": body['transaction']['amount'],
+            "created_at": body['transaction']['created_at']
+        }),
+    elif body['transaction']['amount'] == 333:
+        return jsonify({
+            "message": "Case with 400"
+        }), 400
+    elif body['transaction']['amount'] == 123:
+        time.sleep(11)
+        return jsonify({
+            "code": 0,
+            "uid": body['transaction']['uid'],
+            "amount": body['transaction']['amount'],
+            "created_at": body['transaction']['created_at']
+        }), 400
+    else:
+        return jsonify({
+            "code": 1,
+            "uid": body['transaction']['uid'],
+            "amount": body['transaction']['amount'],
+            "created_at": body['transaction']['created_at']
         }), 200
 
 
