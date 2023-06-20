@@ -26,7 +26,7 @@ def get_stub_response():
 def stub_put():
     return stub_update.stub_update()
 
-
+# in v2
 @app.route('/stub/account_verification', methods=['POST'])
 def account_verification():
     body = request.get_json()
@@ -68,7 +68,7 @@ def process_callback():
     else:
         return jsonify({'message': 'Successful callback'}), 200
 
-
+# in v2
 @app.route('/stub/erip/account_verification', methods=['POST'])
 def erip_account_verification():
     body = request.get_json()
@@ -92,6 +92,34 @@ def erip_account_verification():
                 "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
                 "tracking_id": "your_uniq_number",
                 "amount": 100,
+                "editable_amount": True,
+                "currency": "RUB",
+                "result": "0",
+                "description": "0",
+                "person": {
+                    "first_name": "client_name",
+                    "last_name": "client_surname",
+                    "middle_name": "client_patronymic",
+                },
+                "hint": [
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_1",
+                    },
+                    {
+                        "hintline": "message_n"
+                    },
+                ]
+            }
+        }), 200
+    elif "7777777777" in str(body["request"]["account"]):
+        return jsonify({
+            "response": {
+                "bg_uuid": "3542-24t24g2424242-234t22-235vertyui",
+                "tracking_id": "your_uniq_number",
+                "amount": 100100,
                 "editable_amount": True,
                 "currency": "RUB",
                 "result": "0",
@@ -199,7 +227,7 @@ def erip_account_verification():
             }
         })
 
-
+# in v2
 @app.route('/stub/erip_callback', methods=['POST'])
 def process_erip_callback():
     body = request.get_json()
